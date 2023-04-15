@@ -15,47 +15,49 @@ server.bind(ADDRESS)
 
 def startChat():
 
-	print("server is working on " + SERVER)
+    print("server is working on " + SERVER)
 
-	server.listen()
+    server.listen()
 
-	while True:
-		conn, addr = server.accept()
-		conn.send("NAME".encode(FORMAT))
+    while True:
+        conn, addr = server.accept()
+        conn.send("NAME".encode(FORMAT))
 
+        name = conn.recv(1024).decode(FORMAT)
 
-		name = conn.recv(1024).decode(FORMAT)
+        names.append(name)
+        clients.append(conn)
 
-		names.append(name)
-		clients.append(conn)
+        print(f"Name is :{name}")
 
-		print(f"Name is :{name}")
+        broadcastMessage(f"{name} has joined the chat!".encode(FORMAT), conn)
 
-		broadcastMessage(f"{name} has joined the chat!".encode(FORMAT))
+        conn.send('Connection successful!'.encode(FORMAT))
 
-		conn.send('Connection successful!'.encode(FORMAT))
+        thread = threading.Thread(target=handle,
+                                  args=(conn, addr))
+        thread.start()
 
-		thread = threading.Thread(target=handle,
-								args=(conn, addr))
-		thread.start()
-		
-		print(f"active connections {threading.activeCount()-1}")
+        print(f"active connections {threading.activeCount()-1}")
 
 
 def handle(conn, addr):
 
-	print(f"new connection {addr}")
-	connected = True
+    print(f"new connection {addr}")
+    connected = True
 
-	while connected:
-		message = conn.recv(1024)
+    while connected:
+        message = conn.recv(1024)
 
-		broadcastMessage(message)
+        broadcastMessage(message, conn)
 
-	conn.close()
+    conn.close()
 
-def broadcastMessage(message):
-	for client in clients:
-		client.send(message)
+
+def broadcastMessage(message, sender):
+    for client in clients:
+        if client != sender:
+            client.send(message)
+
 
 startChat()
