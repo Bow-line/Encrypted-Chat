@@ -1,0 +1,30 @@
+rejestrowanie i wyrejestrowanie klas:
+-UWAGA NA "-" przy wyrejestrowaniu, jak tego nie damy do nie bedzie dzialac a bardzo latwo
+to ominac jak sie jest slepym kurwa 
+
+korzystanie z zarejestrowanej klasy:
+-kolejna pułapka na studenta debila: nie bedzie ci dzialac klasa jak ja wyrejestrowales XD
+wiec kliknij jeszcze raz 2 razy plik "rejestruj.reg" zeby ja spowrotem zarejestrowac debilu
+
+manifest pierdolony:
+-ta dllke jebana upchac gdzie sie da: do main folderu, do folderu gdzie mamy .exe, do folderu 
+konkretnego projektu i w koncu guwno jebane zadziala
+-w name musimy wpisac nazwe pliku wykonywanego (czyli projektu)
+-w k=drugim name (tym od klasy) nazwe klasy taka jaka jest w manifescie dllki
+
+tworzenie wlasnych zajebistych bibliotek .dll:
+-zabawa z VS ciąg dalszy, wypierdala się tutaj niemiłosiernie
+-trzeba nazwać projekt tak samo jak bedzie sie nazywala nasza klasa (przykladowo klasa3.dll) zeby
+potem nie bylo mindfucka
+-rejestruj i wyrejestruj umieszczamy w tym samym folderze (Release) projektu
+-dodajemy ten plik guid_k.cpp zarówno do klienta jak i do projektu .ddl
+-co do pliku .def:
+	-> klikamy ppm na nazwe projektu w eksploratorze
+	-> klikamy Linker
+	-> klikamy Input
+	-> Module Definition file modyfikujemy (podajemy sciezke do pliku .def)
+
+
+
+co do pisania samego kodu to raczej ez sprawa, najwiecej jebania jest z tymi dziwnymi problemami a 
+tak to wszystko copy pasta z instrukcji

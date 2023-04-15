@@ -1,0 +1,59 @@
+--na szczescie ostatnia laba z tego guwna--
+
+--REJESTRACJA C++++ COM'ow:--
+
+-UWAGA UWAGA: / są teraz odwrotne do tych co byly w poprzednich labach
+C:\Windows\Microsoft.NET\Framework64\v4.0.30319 -> tutaj jest ten regasm zasrany
+-musisz uruchomic cmd jako   A D M I N I S T R A T O R   
+-wklepujesz se: 
+C:\Windows\Microsoft.NET\Framework64\v4.0.30319\regasm.exe /codebase dupa.dll -> to ci rejestruje
+C:\Windows\Microsoft.NET\Framework64\v4.0.30319\regasm.exe /codebase dupa.dll /u -> a to ci wyrejestruje
+
+jak chcesz caly pliczek odrazu a nie sie jebac z edytowaniem tekstu, to prsze cie bardzo:
+C:\Windows\Microsoft.NET\Framework64\v4.0.30319\regasm.exe /codebase dupa.dll /regfile:rejestruj.reg
+
+--KLIENT CEPOWY:--
+pozyskanie pliku .tlp:
+C:\"Program Files (x86)"\"Microsoft SDKs"\Windows\v10.0A\bin\"NETFX 4.8 Tools"\tlbexp.exe klasa.dll /out:klasa.tlb
+
+tego .tlp dolaczamy do projektu rzecz jasna
+
+UWAGA!
+plik wygenerowany przez regasm moze byc bledny i wychodzi to na jaw w kliencie cepowym wlasnie.
+co jest nie tak niby?, a no "HKEY_CLASSES_ROOT" nie powinno byc tylko powinno byc to zaczynajace sie od
+"HKEY_CURRENT_USER" i wtedy dopiero dziala.
+
+
+--KLIENT C(++)^2 dla coma w C++ (pokurwione guwno)--
+
+stworz se narpiew biblioteke typow .idl i wez ja skompiluj
+powinienes miec klasac.tlb w debugu
+
+wpierdol se to tutaj w cmd:
+C:\"Program Files (x86)"\"Microsoft SDKs"\Windows\v10.0A\bin\"NETFX 4.8 Tools"\tlbimp.exe klasac.tlb /out:klasacOut.dll
+
+i masz dll'ke, ktora dolaczasz do projektu c++++ (right click, add... COM reference)
+
+i teraz siedzisz jakies 2 godziny i sie wkurwiasz na tego zajebanego visuala i masz ochote rozpierdolic/wyjebac przez okno kąkóter
+i sie okazuje ze musisz wcisnac properties -> build -> Platform target: x86
+jak dalej nie bedzie dzialac to zamiast rejestrowac dla current user to: HKEY_CLASSES_ROOT\CLSID
+
+
+--DDL w Chashtag--
+tworzysz se nowy projekt typu Class Library
+wielkiej filozofii nie ma tam tak tbh, duzo prostsze niz w cepie
+kompilujesz se i masz gdzies .dll w folderze solution (nawet mi sie nie chce sciezki przepisywac xd)
+i wez jeszcze pamietaj byq zeby zarejestrowac ten shit zgodnie z pierwszym punktem
+
+proste prawda?
+hahaha chciałbyś kurwa....
+
+główna wkurwiająca rzecz w c#? raz trzeba coś zrobić w .net core drugi raz w .net framework a 3 raz
+w chuj wie jeszczze czym. tutaj akurat trzeba zrobic dll x86 we  F R A M E W O R K 
+powtorze jeszcze raz F R A M E W O R K  chyba z 4h siedzialem nad tym guwnem zajebanym
+ale ostatecznie dziala i to bylo powodem
+
+a i jeszcze bylbym zapomnial, w tym ostanim podpunkcie te wczesniejsze eksportowanie do tlb jakims chujem nie 
+dziala i trzeba dac takie:
+C:\Windows\Microsoft.NET\Framework\v4.0.30319\regasm.exe -tlb -codebase klasa2.dll
+
